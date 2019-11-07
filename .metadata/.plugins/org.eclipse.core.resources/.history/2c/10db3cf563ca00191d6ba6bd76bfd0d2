@@ -1,0 +1,34 @@
+package starter;
+import java.util.*;
+public class Inverse{
+	static void inverse(int n) {
+			double r=0.0;
+		int s=n;
+		double num=n,newnum=0;
+		int counter=0;
+		while(s!=0) {
+			counter++;
+			s=s/10;
+		}
+		System.out.println(counter);
+		for(int i=1;i<=counter;i++) {
+		r=num%10;
+		System.out.println(r);
+		newnum=newnum+i+(Math.pow(10.0,(num-1.0)));
+		num=num/10;
+		}
+		System.out.println((int)newnum);
+	
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter the number");
+		int n=sc.nextInt();
+		
+		inverse(n);
+		
+		
+	}
+
+}

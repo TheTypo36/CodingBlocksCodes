@@ -1,0 +1,65 @@
+package OnlineDP;
+
+public class EditedDistance {
+	public static long start;
+	public static long end;
+
+	public static void startalgo() {
+		start = System.currentTimeMillis();
+	}
+
+	public static long endalgo() {
+		end = System.currentTimeMillis();
+		return end - start;
+	}
+
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String str="agbg";
+		String str1="acgb";
+		startalgo();
+		System.out.println(EditedDistance(str,str1));
+		System.out.println("Time taken by normal recursion " + endalgo()+ " ms");
+		startalgo();
+	}
+	public static int EditedDistance(String str,String str2 ) {
+		if(str.length()==0) {
+			return str2.length();
+		}
+		if(str2.length()==0) {
+			return str.length();
+		}
+		String ros=str.substring(1);
+		String ros1=str.substring(1);
+		
+		int ans=0;
+		
+		if(str.charAt(0)==str2.charAt(0)) {
+			ans=EditedDistance(ros, ros1);
+		}
+		else {
+			int f1=1+EditedDistance(ros, ros1);
+			int f2=1+EditedDistance(ros, str2);
+			int f3=1+EditedDistance(str, ros1);
+			ans=Math.min(f1,Math.min(f2, f3));
+		}
+		return ans;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+}

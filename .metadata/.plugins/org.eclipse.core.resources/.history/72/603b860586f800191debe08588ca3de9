@@ -1,0 +1,331 @@
+package Lecture13;
+
+import java.util.Scanner;
+
+public class Main {
+	
+	public static void main(String args[])throws Exception {
+        // Your Code Here
+		Main list=new Main();
+		Scanner sc=new Scanner(System.in);
+		int n=sc.nextInt();
+		int q=sc.nextInt();
+		for(int i=0;i<n;i++){
+			list.addLast(sc.nextInt());
+		}
+		while(q>0){
+			list.RemoveAt(sc.nextInt());
+			list.display();
+		}
+    }
+		class Node {
+		int data;
+		Node next;
+
+	}
+ 
+	protected Node head;
+	protected Node tail;
+	protected int size;
+
+	public int size() {
+		return this.size;
+
+	}
+
+	public boolean isEmpty() {
+		return size == 0;
+	}
+
+	public void addFirst(int item) {
+		Node nn = new Node();
+		nn.data = item;
+		nn.next = null;
+
+		if (this.size >= 1) {
+			nn.next = this.head;
+
+		}
+
+		if (this.size == 0) {
+			this.tail = nn;
+			this.head = nn;
+		} else {
+
+			this.head = nn;
+		}
+		this.size++;
+
+	}
+	public int RemoveAt(int index) throws Exception {
+
+		if (size == 0) {
+			throw new Exception("The list in empty.");
+		}
+		if (index < 0 || index >= size) {
+			throw new Exception("invalid index");
+		}
+		if (index == 0) {
+			return RemoveFirst();
+		} else if (index == this.size - 1) {
+			return RemoveLast();
+		} else {
+			Node nm1 = getNodeAt(index - 1);
+			Node nn = nm1.next;
+
+			Node np1 = nn.next;
+			nm1.next = np1;
+			size--;
+			return nn.data;
+		}
+	}
+
+	public void addLast(int item) {
+		Node node = new Node();
+		node.data = item;
+		node.next = null;
+
+		if (size >= 1) {
+			this.tail.next = node;
+		}
+		if (size == 0) {
+			this.head = node;
+			this.tail = node;
+		} else {
+			this.tail = node;
+		}
+		size++;
+	}
+
+	public int getfirst() {
+		return this.head.data;
+	}
+
+	public int getLast() {
+		return this.tail.data;
+	}
+
+	private Node getNodeAt(int index) throws Exception {
+		if (size == 0) {
+			throw new Exception("LL is empty!");
+		}
+		if (index < 0 || index >= size) {
+			throw new Exception("Invalid Index");
+		}
+		Node temp = this.head;
+		for (int i = 1; i <= index; i++) {
+			temp = temp.next;
+		}
+		return temp;
+	}
+	
+
+	private int getAt(int index) throws Exception {
+		if (size == 0) {
+			throw new Exception("LL is empty!");
+		}
+		if (index < 0 || index >= size) {
+			throw new Exception("Invalid Index");
+		}
+		Node temp = this.head;
+		for (int i = 1; i <= index; i++) {
+			temp = temp.next;
+		}
+		return temp.data;
+	}
+
+	public void addAt(int index, int item) throws Exception {
+		if (index < 0 || index > size) {
+			throw new Exception("Invalid Index");
+		}
+		if (size == 0) {
+			addFirst(item);
+		} else if (index == this.size) {
+			addLast(item);
+		} else {
+			Node node = new Node();
+			node.data = item;
+			node.next = null;
+			Node nm = getNodeAt(index - 1);
+			Node np = getNodeAt(index);
+			nm.next = node;
+			node.next = np;
+
+		}
+
+	}
+
+	public int RemoveFirst() throws Exception {
+
+		if (this.size == 0) {
+			throw new Exception("the list is empty.");
+
+		}
+		int rv = this.head.data;
+		if (size == 1) {
+
+			this.head = null;
+			this.tail = null;
+			this.size = 0;
+		} else {
+			this.head = this.head.next;
+			size--;
+		}
+		return rv;
+	}
+
+	public int RemoveLast() throws Exception {
+
+		if (this.size == 0) {
+			throw new Exception("the list is empty.");
+
+		}
+		int rv = this.tail.data;
+		if (size == 1) {
+
+			this.head = null;
+			this.tail = null;
+			this.size = 0;
+		} else {
+			Node nm = getNodeAt(size - 1);
+			this.tail = nm;
+			tail.next = null;
+			size--;
+		}
+		return rv;
+	}
+
+	public void reverseDi() throws Exception {
+		int left = 0, right = this.size - 1;
+		while (left <= right) {
+			Node ln = getNodeAt(left);
+			Node rn = getNodeAt(right);
+
+			// swapping the data of left and right
+			int temp = ln.data;
+			ln.data = rn.data;
+			rn.data = temp;
+
+			left++;
+			right--;
+		}
+
+	}
+
+	public void reversePi() {
+		Node p = this.head;
+		Node c = p.next;
+
+		while (c != null) {
+			Node a = c.next;
+
+			c.next = p;
+
+			p = c;
+			c = a;
+		}
+		Node temp = this.head;
+		this.head = this.tail;
+		this.tail = temp;
+
+		this.tail.next = null;
+
+	}
+
+	public void reverseDr() {
+		this.reverseDr(this.head,this.head,0);
+	}
+
+	private void reverseDr(Node left,Node right,int level) {
+		if(right==null) {
+			return;
+		}
+		reverseDr(left,right.next,level+1);
+		if(level>=this.size()/2) {
+			int temp=left.data;
+			left.data=right.data;
+			right.data=temp;
+			left=left.next;
+		}
+
+	}
+	public void removeMidNode() throws Exception {
+		Node slow=this.head;
+		Node fast=this.head;
+		Node prev=this.head;
+		while(fast.next!=null&&fast.next.next!=null) {
+			prev =slow;
+			slow=slow.next;
+			fast=fast.next.next;
+			
+		}
+		prev.next=slow.next;
+	}
+public int kth(int k) {
+	Node slow=this.head;
+	Node fast=this.head;
+	for(int i=0;i<=k;i++){
+		fast=fast.next;
+	}
+	while(fast.next.data!=-1){
+		slow=slow.next;
+		fast=fast.next;
+	}
+	return slow.data;
+}
+
+	public void display() {
+		Node temp = this.head;
+		while (temp != null) {
+			System.out.print(temp.data + " ");
+			temp = temp.next;
+		}
+		System.out.println();
+	}
+	public int mid() {
+		Node p=this.head;
+		Node l=this.head;
+		while(l.next!=null&&l.next.next!=null) {
+			p=p.next;
+			l=l.next.next;
+		}
+		return p.data;
+	}
+
+	
+	public void AddOne() {
+		Node temp=this.head;
+		while(temp!=null) {
+		temp.data=temp.data+1;
+		temp=temp.next;
+	}
+	}
+	public void ReverseWithWin(int k) throws Exception {
+		int start=0;
+		int end=k-1;
+	
+		while(start<size) {
+			int i=start;
+			int l=end;
+			while(i<=l) {
+				Node ln = getNodeAt(i);
+				Node rn = getNodeAt(l);
+
+				
+				int temp = ln.data;
+				ln.data = rn.data;
+				rn.data = temp;
+
+				i++;
+				l--;
+			}
+			start+=k;
+			end+=k;
+		}
+	}
+
+
+
+}
+
+

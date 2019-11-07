@@ -1,0 +1,42 @@
+package starter;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+
+
+public class onlineHashmaps {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String str="aaaaaaaaababadgbabaababfab";
+			getMaxOcc(str);
+	}
+	public static void getMaxOcc(String str) {
+		HashMap<Character, Integer> occ=new HashMap<Character, Integer>();
+		for(int i=0;i<str.length();i++) {
+			char cc=str.charAt(i);
+			if(occ.containsKey(cc)) {
+				int ov=occ.get(cc);
+				int nv=ov+1;
+				occ.put(cc, nv);
+			}
+			else {
+				occ.put(cc, 1);
+			}
+			
+		}
+		char maxchar='\0';
+		int max=0;
+		Set<Map.Entry<Character, Integer>> enteries=occ.entrySet();
+		for(Map.Entry<Character, Integer> enter:enteries) {
+			if(enter.getValue()>max) {
+				max=enter.getValue();
+				maxchar=enter.getKey();
+			}
+		}
+		System.out.println(maxchar+" is most occuring character and it occurs "+max);
+	}
+
+}

@@ -1,0 +1,110 @@
+package OnlineDP;
+
+import java.util.ArrayList;
+
+public class BoardPath {
+	public static long start;
+	public static long end;
+	public static void startalgo() {
+		start = System.currentTimeMillis();
+	}
+
+	public static long endalgo() {
+		end = System.currentTimeMillis();
+		return end - start;
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int n=30;
+		
+		int[] strg=new int[n+1];
+			//System.out.println(getBoardPath(0, 10));
+		startalgo();
+		System.out.println(countBoardPathRS(0, n, strg));
+		System.out.println("Time taken by storage recursion " + endalgo() + " ms");
+		startalgo();
+		System.out.println(CountBoardPathIR(0, n, strg));
+		System.out.println("Time taken by storage Iteration " + endalgo() + " ms");
+		startalgo();
+		System.out.println(countBoardPath(0, n));
+		System.out.println("Time taken by normal recursion " + endalgo() + " ms");
+	}
+
+	public static ArrayList<String> getBoardPath(int cc, int end) {
+		if (cc > end) {
+			ArrayList<String> negative = new ArrayList<String>();
+			return negative;
+		}
+		if (cc == end) {
+			ArrayList<String> br = new ArrayList<String>();
+			br.add("");
+			
+			return br;
+		}
+		ArrayList<String> myans = new ArrayList<String>();
+		for (int dice = 1; dice <= 6; dice++) {
+			ArrayList<String> recur = getBoardPath(cc + dice, end);
+			for (String rss : recur) {
+
+				myans.add(rss + dice);
+			}
+			
+		}
+		return myans;
+	}
+	public static int countBoardPathRS(int cc,int end,int[] strg) {
+		if (cc > end) {
+			
+			return 0;
+		}
+		if (cc == end) {
+			return 1;
+		}
+		int count=0;
+		if(strg[cc]!=0)
+			return strg[cc];
+		
+		for (int dice = 1; dice <= 6; dice++) {
+		count=count+ countBoardPathRS(cc + dice, end,strg);
+		
+			
+		}
+		strg[cc]=count;
+		return count;
+	}
+
+	public static int countBoardPath(int cc,int end) {
+		if (cc > end) {
+			
+			return 0;
+		}
+		if (cc == end) {
+			return 1;
+		}
+		int count=0;
+	
+			
+		
+		for (int dice = 1; dice <= 6; dice++) {
+		count=count+ countBoardPath(cc + dice, end);
+		
+			
+		}
+	
+		return count;
+	}
+	public static int CountBoardPathIR(int cc,int end,int[] strg) {
+		int sum;
+		strg[end]=1;
+		strg[end-1]=1;
+		for(int i=end-2;i>=0;i--) {
+			sum=0;
+			for(int j=i+1;j<=i+6&&j<=10;j++) {
+
+			sum=sum+strg[j];
+				 
+			}
+		}
+		return strg[cc];
+	}
+}

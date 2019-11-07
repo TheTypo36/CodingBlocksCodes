@@ -1,0 +1,66 @@
+package starter;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+
+
+public class onlineHashmaps {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String str="aaaaaaaaababadgbabaababfab";
+			getMaxOcc(str);
+			int[] one= {1,2,3,4,5,7};
+			int[] two={1,3,5,7,8,9,10};
+			System.out.println(Intersection(one, two));
+	}
+	public static void getMaxOcc(String str) {
+		HashMap<Character, Integer> occ=new HashMap<Character, Integer>();
+		for(int i=0;i<str.length();i++) {
+			char cc=str.charAt(i);
+			if(occ.containsKey(cc)) {
+				int ov=occ.get(cc);
+				int nv=ov+1;
+				occ.put(cc, nv);
+			}
+			else {
+				occ.put(cc, 1);
+			}
+			
+		}
+		char maxchar='\0';
+		int max=0;
+		Set<Map.Entry<Character, Integer>> enteries=occ.entrySet();
+		for(Map.Entry<Character, Integer> enter:enteries) {
+			if(enter.getValue()>max) {
+				max=enter.getValue();
+				maxchar=enter.getKey();
+			}
+		}
+		System.out.println(maxchar+" is most occuring character and it occurs "+max);
+	}
+	public static ArrayList<Integer> Intersection(int[] one,int[] two){
+		HashMap<Integer, Boolean> map=new HashMap<Integer, Boolean>();
+		ArrayList<Integer> list=new ArrayList<Integer>();
+		
+		for(int i=0;i<one.length;i++) {
+			map.put(one[i], false);
+		}
+		for(int j=0;j<two.length;j++) {
+			if(map.containsKey(two[j])) {
+				map.put(two[j], true);
+			}
+		}
+		Set<Map.Entry<Integer, Boolean>> enteries=map.entrySet();
+		for(Map.Entry<Integer, Boolean> entery:enteries) {
+			if(entery.getValue()) {
+				list.add(entery.getKey());
+			}
+		}
+		return list;
+	}
+
+}

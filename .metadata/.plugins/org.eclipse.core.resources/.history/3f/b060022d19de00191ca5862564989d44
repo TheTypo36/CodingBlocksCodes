@@ -1,0 +1,67 @@
+package BinarySearchProblems;
+
+import java.util.*;
+public class PaintersParition {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter the number painter you have");
+		int k=sc.nextInt();
+		System.out.println("Enter the number of boards to paint");
+		int n=sc.nextInt();
+		System.out.println("Enter the size of boards one by one");
+		int[] arr=new int[n];
+		for(int i=0;i<n;i++) {
+			arr[i]=sc.nextInt();
+		}
+		partition(arr,k,n);
+		}
+	public static void partition(int[] arr,int k,int n) {
+		int low=max(arr,n);
+		int high=sumofarray(arr,n);
+		while(low<high) {
+			 int mid=low+(high-low)/2;
+			 int paintersrequired=numberofpainters(arr,mid,n);
+			 if(paintersrequired<=k)
+				 high=mid;
+			 else
+				 low=mid+1;
+		}
+		System.out.println(low);
+	}
+	
+	public static int numberofpainters(int[] arr,int maxl,int n) {
+		int total=0,numberofpainter=1;
+		for(int i=0;i<n;i++) {
+			total=total+arr[i];
+			if(total>maxl)
+			{
+				total=arr[i];
+				numberofpainter++;
+			}
+			
+		}
+		return numberofpainter;
+	}
+	/*function to return largest element of the array, it help to know the least time to 
+	complete the task.*/
+	public static int max(int[] arr,int n) {
+		int max=Integer.MIN_VALUE;
+		for(int i=0;i<n;i++) {
+			if(max<arr[i])
+				max=arr[i];
+		}
+		return max;
+	}
+	/*function to return sum of all the element of the array, it help to know the maximum time to 
+	complete the task.*/
+	public static int sumofarray(int[] arr,int n) {
+		int sum=0;
+		for(int i=0;i<n;i++) {
+			sum=sum+arr[i];
+		}
+		return sum;
+	}
+
+}

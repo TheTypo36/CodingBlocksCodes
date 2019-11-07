@@ -1,0 +1,40 @@
+package Lecture18;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+public class Basic_HashMap {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String str="aaabcdsfkladjdddddddddddddddddddddddaaddd";
+		System.out.println(maxChar(str));
+	}
+	public static char maxChar(String str) {
+		HashMap<Character, Integer> occ=new HashMap<Character, Integer>();
+		for(int i=0;i<str.length();i++) {
+			char cc=str.charAt(i);
+			if(occ.containsKey(cc)) {
+				int value=occ.get(cc);
+				int newv=value+1;
+				occ.put(cc, newv);
+			}
+			else {
+				occ.put(cc, 1);
+			}
+			
+		}
+		char maxchar='\0';
+		int max=0;
+		Set<Map.Entry<Character, Integer>> enteries=occ.entrySet();
+		for(Map.Entry<Character, Integer> enter:enteries) {
+			if(enter.getValue()>max) {
+				max=enter.getValue();
+				maxchar=enter.getKey();
+			}
+		}
+		return maxchar;
+	}
+//	public static
+}

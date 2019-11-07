@@ -1,0 +1,13 @@
+		String newstr="";
+		String newstr1="";
+		if(str.equals(""))
+			return newstr+newstr1;
+		if(str.charAt(0)=='x')
+			String restans=Modify(str.substring(1));
+			newstr=restans+'x';
+		else
+			newstr1=newstr1+str.charAt(0);
+				
+		return newstr;
+	}
+	

@@ -1,0 +1,48 @@
+package starter;
+import java.util.*;
+public class Inverse {
+	static String reverse(int n) {
+		String rev="";
+		int	num=n;
+		int count=0;
+		while(num>0) {
+			count++;
+			num=num/10;
+		}
+		while(count>0){
+			
+			 double as=(Math.pow(10.0,count-1));
+			 int p=(int)as;
+			rev=rev+(n/p)+" ";
+			n=n%p;
+			count--;
+		}
+		return rev;
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter the number");
+		int n=sc.nextInt(),count=0,i;
+		String ch=" ";
+		
+		String rev=reverse(n);
+		System.out.println(rev);
+		String arr[]=rev.split(" ");
+		count=arr.length;
+		for(i=0;i<count-1;i++) {
+			if(i%2==0) {
+				ch=arr[i];
+				arr[i]=arr[i+2];
+				arr[i+2]=ch;
+			}
+			
+		}
+		for(String j:arr)
+		System.out.print(j);
+		
+		
+	}
+
+}

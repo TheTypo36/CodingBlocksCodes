@@ -1,0 +1,73 @@
+package Onlineht;
+
+public class HashTable<K,V> {
+	public class HTPair{
+		K key;
+		V value;
+		
+		public HTPair(K key,V value) {
+			this.key=key;
+			this.value=value;
+		}
+		public boolean equals(Object other) {
+			HTPair ob=(HTPair)other;
+			return this.key.equals(ob.key);
+		}
+		public String toString() {
+			return "{"+this.key+"-"+this.value+"}";
+		}
+	}
+	public static final int default_capacity=10;
+	LinkedList<HTPair>[] bucketarray;
+	int size;
+	public HashTable() {
+		this(default_capacity);
+	}
+	public HashTable(int capacity) {
+		bucketarray=(LinkedList<HTPair>[])new LinkedList[capacity];
+		size=0;
+		
+	}
+	public void put(K key,V value) throws Exception {
+		int bi=Hashfunc(key);
+		HTPair pta=new HTPair(key, value);
+		LinkedList<HTPair> bucket=this.bucketarray[bi];
+		if(bucket==null) {
+			bucket=new LinkedList<>();
+			bucket.addLast(pta);
+			size++;
+			this.bucketarray[bi]=bucket;
+		}
+		else {
+			int findAt=bucket.find(pta);
+			if(findAt==-1) {
+				bucket.addLast(pta);
+				this.size++;
+			}
+			else {
+				HTPair pair=bucket.getAt(findAt);
+				pair.value=value;
+				
+			}
+			
+		}
+		
+	}
+	public void display() {
+		for(LinkedList<HTPair> bucket:this.bucketarray) {
+			if(bucket!=null&&bucket.isEmpty()) {
+				bucket.display();
+			}
+			else {
+				System.out.println("NULL");
+			}
+			System.out.println("**********************");
+		}
+	}
+	public int Hashfunc(K key) {
+		int a=key.hashCode();
+		a=Math.abs(a);
+		int bi=a%this.bucketarray.length;
+		return bi;
+	}
+}

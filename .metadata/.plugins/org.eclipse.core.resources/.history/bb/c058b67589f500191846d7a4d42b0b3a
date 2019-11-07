@@ -1,0 +1,44 @@
+package Lecture17;
+
+public class MazePath {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int n=2;
+			int[][] strg=new int[n+1][n+1];
+			System.out.println(countMazePathIR(n, n, 0, 0, strg));
+			
+	}
+//	public static int countMazePath(int er, int ec, int cc, int cr,int[][]strg) {
+//		if (cr == er || ec == cc) {
+//			return 1;
+//		}
+//		if (cc == ec && cr == er) {
+//			return 0;
+//		}
+//		int counter = 0;
+//		int rec = countMazePath(er, ec, cc + 1, cr);
+//		int rec1 = countMazePath(er, ec, cc, cr + 1);
+//		int myans=rec+rec1;
+//		strg[cc][cr]=myans;
+//		return myans;
+//	}
+	public static int countMazePathIR(int er,int ec,int cc,int cr,int[][] strg) {
+		strg[er][ec]=0;
+		
+		for(int i=er;i>=0;i--) {
+			for(int j=ec;i>=0;j--) {
+				if(i==strg.length) {
+					strg[i][j]=1;
+					continue;
+				}
+				if(j==strg.length) {
+					strg[i][j]=1;
+					continue;
+				}
+				strg[i][j]=strg[i+1][j]+strg[i][j+1];
+			}
+		}
+		return strg[cc][cr];
+	}
+}

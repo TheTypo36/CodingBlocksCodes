@@ -1,0 +1,30 @@
+package OnlineDP;
+
+public class LongestCSUB {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println(Lcs("abbg", "agbg"));
+
+	}
+	public static int Lcs(String str,String str2) {
+	   if(str.length()==0|| str2.length()==0) {
+		   return 0;
+	   }
+		char ch=str.charAt(0);
+		char ch2=str2.charAt(0);
+		String ros=str.substring(1);
+		String ros1=str2.substring(1);
+		int count=0;
+		if(ch==ch2) {
+			count=1+Lcs(ros, ros1);
+		}
+		else {
+			int f1=Lcs(str, ros1);
+			int f2=Lcs(ros, str2);
+			count=Math.max(f1, f2);
+		}
+		return count;
+}
+
+}

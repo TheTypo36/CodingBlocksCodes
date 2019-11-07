@@ -1,0 +1,55 @@
+package Lecture17;
+
+public class BoardPath {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+			int n=10;
+			int[] strg=new int[n+1];
+			System.out.println(countBoardPath(0, n));
+			System.out.println(countBoardPathRS(0, n,strg));
+	}
+
+	public static int countBoardPath(int cc,int end) {
+		if (cc > end) {
+			
+			return 0;
+		}
+		if (cc == end) {
+			return 1;
+		}
+		int count=0;
+	
+			
+		
+		for (int dice = 1; dice <= 6; dice++) {
+		count=count+ countBoardPath(cc + dice, end);
+		
+			
+		}
+	
+		return count;
+	}
+	public static int countBoardPathRS(int cc,int end,int[] strg) {
+		if (cc > end) {
+			
+			return 0;
+		}
+		if (cc == end) {
+			return 1;
+		}
+		int count=0;
+		if(strg[cc]!=0)
+			return strg[cc];
+		
+		for (int dice = 1; dice <= 6; dice++) {
+		count=count+ countBoardPathRS(cc + dice, end,strg);
+		
+			
+		}
+		strg[cc]=count;
+		return count;
+	}
+	
+
+}
