@@ -137,7 +137,6 @@ public class HashTable<K, V> {
 				HTPair pair=bucket.getAt(findAt);
 				V r=pair.value;
 				bucket.removeAt(findAt);
-				this.size--;
 				return r;
 			}
 			
