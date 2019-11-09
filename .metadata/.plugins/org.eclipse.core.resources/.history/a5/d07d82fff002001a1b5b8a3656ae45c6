@@ -1,0 +1,35 @@
+package Lecture20;
+
+public class client {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Graphs graph=new Graphs();
+		graph.addvertex("a");
+		graph.addvertex("b");
+		graph.addvertex("c");
+		graph.addvertex("d");
+		graph.addvertex("e");
+		graph.addvertex("f");
+		graph.addvertex("g");
+
+		
+		graph.addEdge(" a", "b", 40);
+		graph.addEdge("a", "d", 10);
+		graph.addEdge("b", "c", 10);
+		graph.addEdge("c", "d", 41);
+		graph.addEdge("d", "e", 2);
+		graph.addEdge("e", "g", 3);
+		graph.addEdge("g", "c", 8);
+		graph.addEdge("c", "e", 10);
+		
+		
+		
+		graph.display();
+		//System.out.println(graph.haspath("a", "g"));
+		System.out.println("**********bft************");
+		
+		graph.bft();		
+	}
+
+}

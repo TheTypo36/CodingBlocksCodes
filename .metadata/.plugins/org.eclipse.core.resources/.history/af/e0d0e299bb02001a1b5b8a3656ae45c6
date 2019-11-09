@@ -1,0 +1,11 @@
+package starter;
+import java.util.HashMap;
+
+public class OnlineTries {
+	private class Node{
+		private char data;
+		private HashMap<Character, Node> children;
+		private boolean isTerminal;
+	}
+	
+}

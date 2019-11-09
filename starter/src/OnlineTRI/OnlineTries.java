@@ -1,0 +1,128 @@
+package OnlineTRI;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+public class OnlineTries {
+	private class Node{
+		private char data;
+		private HashMap<Character, Node> children;
+		private boolean isTerminal;
+		
+		public Node(char data,boolean isTerminal) {
+			this.data=data;
+			children=new HashMap<>();
+			this.isTerminal =isTerminal;
+		}
+	}
+	private int noWords;
+	private Node root;
+	
+	public OnlineTries() {
+		noWords=0;
+		root=new Node('\0',false);
+		
+	}
+	public int noWords() {
+		return this.noWords;
+	}
+	public void add(String str) {
+		this.add(this.root,str);
+	}
+	private void add(Node parent, String str) {
+		// TODO Auto-generated method stub
+		if(str.length()==0) {
+			if(parent.isTerminal) {
+				
+			}else {
+				parent.isTerminal=true;
+				this.noWords++;
+			}
+			return;
+			
+		}
+		char cc=str.charAt(0);
+		String ros=str.substring(1);
+		
+		Node child=parent.children.get(cc);
+		if(child==null) {
+			 child=new Node(cc, false);
+			parent.children.put(cc, child);
+			
+		}
+		this.add(child, ros);
+		
+		
+	}
+	public void display() {
+		this.display(this.root,"");
+	}
+	private void display(Node parent, String str) {
+		if(parent.isTerminal) {
+			String show=str.substring(1)+parent.data;
+			System.out.println(show);
+		}
+		// TODO Auto-generated method stub
+		Set<Map.Entry<Character, Node>> enteries=parent.children.entrySet();
+		for(Map.Entry<Character, Node> entery:enteries) {
+			this.display(entery.getValue(), str+parent.data);
+			
+		}
+	}
+	public boolean search(String word) {
+		return this.search(this.root,word);
+	}
+	private boolean search(Node parent, String word) {
+		if(word.length()==0)
+		{
+		if(parent.isTerminal) {
+			return true;
+		}	
+		else
+		{
+			return false;
+		}
+		}
+		// TODO Auto-generated method stub
+		char cc=word.charAt(0);
+		String ros=word.substring(1);
+		
+		Node child=parent.children.get(cc);
+		if(child==null) {
+			return false;
+		}
+		return this.search(child,ros);
+	}
+	public void remove(String str) {
+		this.remove(this.root,str);
+	}
+	private void remove(Node parent, String word) {
+		// TODO Auto-generated method stub
+		if(word.length()==0)
+		{
+		if(parent.isTerminal) {
+			parent.isTerminal=false;
+			this.noWords--;
+		}	
+		else
+		{
+		
+		}
+		return;
+		}
+		// TODO Auto-generated method stub
+		char cc=word.charAt(0);
+		String ros=word.substring(1);
+		
+		Node child=parent.children.get(cc);
+		if(child==null) {
+			return;
+		}
+		 this.remove(child,ros);
+		 
+		 if(!child.isTerminal&&child.children.size()==0) {
+			 child.children.remove(cc);
+		 }
+	}
+}

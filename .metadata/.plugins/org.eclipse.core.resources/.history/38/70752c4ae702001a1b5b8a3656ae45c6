@@ -1,0 +1,80 @@
+package Lecture20;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+public class Graphs {
+	public class vertex{
+		String name;
+		HashMap<vertex,Integer> nbrs;
+		
+		public vertex(String name) {
+			this.name=name;
+			this.nbrs=new HashMap<>();
+		}
+		public boolean equals(Object other) {
+			vertex ov=(vertex)(other);
+			return this.name.equals(ov.name);
+		}
+	
+		public void Display() {
+			String str=this.name+"=>";
+			Set<vertex> nbrs =this.nbrs.keySet();
+			for(vertex nbr :nbrs) {
+				str=str + nbr.name+"("+this.nbrs.get(nbr)+"), ";
+			}
+			str=str+"END";
+			System.out.println(str);
+		}
+	}
+	HashMap<String ,vertex> vtces;
+	Graphs(){
+		this.vtces=new HashMap<String, Graphs.vertex>();
+		
+	}
+	public int numVtces() {
+		return this.vtces.size();
+	}
+	public void addvertex(String name) {
+		if(vtces.containsKey(name)) {
+			return;
+		}
+		vertex vtx=new vertex(name);
+		this.vtces.put(name, vtx);
+	}
+	public int numEdges() {
+		Collection<vertex> vtx=vtces.values();
+		int rv=0;
+		for(vertex vt:vtx) {
+			rv=rv+vt.nbrs.size();
+		}
+		rv=rv/2;
+				
+		return rv;
+	}
+	public void addEdge(String name1,String name2,int cost) {
+		vertex vtx1=this.vtces.get(name1);
+		vertex vtx2=this.vtces.get(name2);
+		
+		if(vtx1==null||vtx2==null||vtx1.nbrs.containsKey(vtx2)) {
+			return;
+		}
+		vtx1.nbrs.put(vtx1, cost);
+		vtx2.nbrs.put(vtx1, cost);
+	}
+	public void removeEdge(String name1,String name2) {
+		vertex vtx1=this.vtces.get(name1);
+		vertex vtx2=this.vtces.get(name2);
+		
+	}
+	public void display() {
+		Collection <vertex> vtces=this.vtces.values();
+		for(vertex vtx:vtces) {
+			vtx.Display();
+		}
+	}
+}
+
